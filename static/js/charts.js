@@ -1,3 +1,7 @@
+//////////////////
+// Starter Code //
+//////////////////
+
 function init() {
   // Grab a reference to the dropdown select element
   var selector = d3.select("#selDataset");
@@ -35,8 +39,8 @@ function buildMetadata(sample) {
   d3.json("samples.json").then((data) => {
     var metadata = data.metadata;
     // Filter the data for the object with the desired sample number
-    var resultArray = metadata.filter(sampleObj => sampleObj.id == sample);
-    var result = resultArray[0];
+    var sampleArray = metadata.filter(sampleObj => sampleObj.id == sample);
+    var result = sampleArray[0];
     // Use d3 to select the panel with id of `#sample-metadata`
     var PANEL = d3.select("#sample-metadata");
 
@@ -64,9 +68,10 @@ function buildCharts(sample) {
     // 3. Create a variable that holds the samples array. 
     var samples = data.samples;
     // 4. Create a variable that filters the samples for the object with the desired sample number.
-    var resultArray = samples.filter(sampleObj => sampleObj.id == sample);
+    // code pulled from https://stackoverflow.com/questions/65495437/problems-creating-a-horizontal-bar-chart-using-javascript-cant-figure-out-my-e
+    var sampleArray = samples.filter(sampleObj => sampleObj.id == sample);
     //  5. Create a variable that holds the first sample in the array.
-    var result = resultArray[0];
+    var result = sampleArray[0];
 
     // 6. Create variables that hold the otu_ids, otu_labels, and sample_values.
     var  ids = result.otu_ids;
@@ -79,7 +84,7 @@ function buildCharts(sample) {
     // 7. Create the yticks for the bar chart.
     var yticks = ids.map(sampleObj => "OTU " + sampleObj).slice(0,10).reverse();
 
-    console.log(yticks)
+    // console.log(yticks)
 
     // 8. Create the trace for the bar chart. 
     var barData = [{
